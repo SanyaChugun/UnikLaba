@@ -9,15 +9,13 @@ public class MoveCamera : MonoBehaviour
     public Vector3 offset;
     void Start()
     {
-        offset.y = 600;
-        offset.z = -150;
+        offset.y = -180;
+        offset.z = -200;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void FixedUpdate()
     {
-        Vector3 newCamPosition = new Vector3(player.position.x + offset.x,
-        offset.y, player.position.z + offset.z);
-        transform.position = Vector3.Lerp(transform.position, newCamPosition,
-        camPositionSpeed * Time.deltaTime);
+        Vector3 newCamPosition = new Vector3(player.position.x + offset.x,offset.y, player.position.z + offset.z);
+        transform.position = Vector3.Lerp(transform.position, newCamPosition, camPositionSpeed * Time.deltaTime);
     }
 }
