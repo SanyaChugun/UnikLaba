@@ -7,7 +7,7 @@ using System;
 public class Enemy : MonoBehaviour
 {
     public int _health_enemy;
-    [SerializeField] TextMeshPro enemyhealthText;
+    [SerializeField] private TextMeshProUGUI enemyhealthText;
     private GameObject[] friends;
     private GameObject player;
     [SerializeField] private PlayerController PlayerController;
@@ -17,14 +17,20 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _health_enemy = Random.Range(1, 50);
-        //enemyhealthText.text = _health_enemy.ToString();
+        enemyhealthText.text = _health_enemy.ToString();
         friends = GameObject.FindGameObjectsWithTag("Friend");
         _enemyspeed = 20;
+        transform.localScale = (Vector3.one*(_health_enemy/Random.Range(1,10))+transform.localScale+(Vector3.one*_health_enemy)/20);
     }
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         int playerHealth = PlayerController.health;
+        //transform.localScale = Vector3.one + (Vector3.one * healthFriend) / 20 + transform.localScale;
+        if (_health_enemy > 20)
+        {
+            transform.localScale = Vector3.one * _health_enemy / 2;
+        }
         if (_health_enemy > playerHealth)
         {
             transform.position = Vector3.MoveTowards(transform.position,
@@ -61,9 +67,8 @@ public class Enemy : MonoBehaviour
             Friend friend = collision.gameObject.GetComponent<Friend>();
             int healthFriend = friend._health;
             _health_enemy += healthFriend;
-            //enemyhealthText.text = _health_enemy.ToString();
+            enemyhealthText.text = _health_enemy.ToString();
             Destroy(collision.gameObject);
-            transform.localScale = Vector3.one + (Vector3.one * healthFriend) / 20 + transform.localScale;
         }
     }
     public bool isAlive()

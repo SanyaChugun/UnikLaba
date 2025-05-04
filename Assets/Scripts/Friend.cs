@@ -6,14 +6,13 @@ using Random = UnityEngine.Random;
 using TMPro;
 public class Friend : MonoBehaviour
 {
-    private Transform friend;
     public int _health;
-    [SerializeField] TextMeshPro healthText;
+    [SerializeField] private TextMeshProUGUI healthText;
     void Start()
     {
         _health = Random.Range(1, 10);
-        //healthText.text = _health.ToString();
-        //friend.localScale = Vector3.one + (Vector3.one * _health) / 10 /*+ friend.localScale*/;
+        healthText.text = _health.ToString();
+        transform.localScale = Vector3.one + ((Vector3.one * _health)) /*+ friend.localScale*/;
     }
     void Update()
     {
