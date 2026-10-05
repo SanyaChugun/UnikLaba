@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Friend
   - Enemy
+  - SaveZone
+  - PatrolPoint1
+  - PatrolPoint2
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject LosePanel;
     [SerializeField] private GameObject WinPanel;
 
+    public bool isHide = false;
     public int health = 1;
     private void Start() {
          player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -55,15 +56,32 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "SaveZone")
+            {
+                Debug.Log("Ïנÿקועסÿ");
+                isHide = true;
+            }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "SaveZone")
+        {
+            Debug.Log("ÁÎËÜØÅ םו ןנÿקועסÿ");
+            isHide = false;
+        }
+    }
     private void FixedUpdate()
     {
+        Debug.Log(isHide);
         if (health > 20) {
             transform.localScale = Vector3.one * health / 2;
         }
         _rigidbody.linearVelocity = new Vector3(_joystick.Horizontal * _moveSpeed, _rigidbody.linearVelocity.y, _joystick.Vertical * _moveSpeed);
         if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
         {
-            Console.WriteLine("check");
+            Console.WriteLine(isHide);
             transform.rotation = Quaternion.LookRotation(_rigidbody.linearVelocity);
         }
     }
